@@ -1,6 +1,6 @@
 package com.github.noamm9.untitled.mixins;
 
-import com.github.noamm9.NoammAddons;
+import com.github.noamm9.untitled.crit.control.ClientControlAdapter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,6 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinMinecraft {
     @Inject(method = "setLevel", at = @At("HEAD"))
     public void onSetLevel(ClientLevel clientLevel, CallbackInfo ci) {
-        NoammAddons.logger.info("Hi From Example Mixins");
+        ClientControlAdapter.worldChanging();
     }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void critTick(CallbackInfo ci) { ClientControlAdapter.tick(); }
 }

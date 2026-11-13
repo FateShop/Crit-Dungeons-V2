@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(KeyboardHandler.class)
+@Mixin(value = KeyboardHandler.class, priority = 2000)
 public class MixinCritKeyboard {
     @Inject(method = "keyPress", at = @At("HEAD"))
     private void critObserveKey(long window, int action, KeyEvent event, CallbackInfo ci) {

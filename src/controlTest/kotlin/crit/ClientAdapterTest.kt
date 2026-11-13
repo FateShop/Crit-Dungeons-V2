@@ -23,4 +23,8 @@ fun runClientAdapters() {
     coordinator.emergencyStop(coordinator.state.runEpoch!!)
     lifecycle.observe(true, true, false, false, 3L)
     check(coordinator.state.stoppedRunEpoch == coordinator.state.runEpoch)
+    check(!ExternalActionState(false, false, false).busy)
+    check(ExternalActionState(true, false, false).busy)
+    check(ExternalActionState(false, true, false).busy)
+    check(ExternalActionState(false, false, true).busy)
 }

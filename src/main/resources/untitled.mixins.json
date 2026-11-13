@@ -8,7 +8,11 @@
   ],
   "client": [
     "MixinMinecraft",
-    "MixinCategoryPanel"
+    "MixinCategoryPanel",
+    "MixinCritKeyboard",
+    "MixinCritMouse",
+    "MixinCritWindow",
+    "ActionUtilsAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

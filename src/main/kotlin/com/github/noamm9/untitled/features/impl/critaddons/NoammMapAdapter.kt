@@ -13,7 +13,8 @@ internal object NoammMapAdapter {
     // The renderer draws while measuring, so a separate measuring draw would duplicate effects.
     private val bounds = mutableMapOf(false to (128f to 128f), true to (128f to 140f))
     fun availability(): MapAvailability {
-        val active = LocationUtils.inDungeon && !LocationUtils.inBoss
+        val active = LocationUtils.inDungeon && !LocationUtils.inBoss &&
+            com.github.noamm9.untitled.crit.control.ClientControlAdapter.lifecycle.mapAllowed
         return MapContract.availability(active, active && DungeonScanner.dungeonList.any { it !is Unknown })
     }
 
