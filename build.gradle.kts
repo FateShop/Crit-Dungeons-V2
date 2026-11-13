@@ -106,7 +106,7 @@ tasks.withType<KotlinCompile>().configureEach {
 
 val controlTestSources = sourceSets.create("controlTest") {
     kotlin.setSrcDirs(listOf(rootProject.file("src/controlTest/kotlin"), rootProject.file("src/main/kotlin")))
-    kotlin.include("crit/**", "**/critaddons/MapContract*.kt", "**/crit/control/Session*.kt", "**/crit/control/TaskContract.kt", "**/crit/control/ResourceLeases.kt", "**/crit/control/CancellationToken.kt")
+    kotlin.include("crit/**", "**/critaddons/MapContract*.kt", "**/crit/control/Session*.kt", "**/crit/control/TaskContract.kt", "**/crit/control/ResourceLeases.kt", "**/crit/control/CancellationToken.kt", "**/crit/control/ManualInputState.kt")
 }
 
 dependencies {
