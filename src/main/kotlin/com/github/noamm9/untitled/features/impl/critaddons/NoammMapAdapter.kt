@@ -3,9 +3,17 @@ package com.github.noamm9.untitled.features.impl.critaddons
 import com.github.noamm9.features.impl.dungeon.map.MapConfig
 import com.github.noamm9.features.impl.dungeon.map.MapRenderer
 import com.github.noamm9.ui.utils.Resolution
+import com.github.noamm9.utils.dungeons.map.core.Unknown
+import com.github.noamm9.utils.dungeons.map.handlers.DungeonScanner
+import com.github.noamm9.utils.location.LocationUtils
 import net.minecraft.client.gui.GuiGraphicsExtractor
 
 internal object NoammMapAdapter {
+    fun availability(): MapAvailability {
+        val active = LocationUtils.inDungeon && !LocationUtils.inBoss
+        return MapContract.availability(active, active && DungeonScanner.dungeonList.any { it !is Unknown })
+    }
+
     fun draw(ctx: GuiGraphicsExtractor, x: Int, y: Int, width: Int, height: Int) {
         if (width <= 0 || height <= 0) return
         // The pinned renderer returns 140 even with extraInfo=false when its background is extended.

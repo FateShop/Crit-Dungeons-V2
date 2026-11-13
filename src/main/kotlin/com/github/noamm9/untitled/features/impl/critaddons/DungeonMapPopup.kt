@@ -27,7 +27,7 @@ object DungeonMapPopup : Feature("View Noamm's current dungeon map.", toggled = 
             else -> PopupSurface.OTHER
         }
         when (MapContract.press(surface, popupKey.matches(code, mouse))) {
-            PopupRequest.OPEN -> mc.gui.setScreen(DungeonMapScreen())
+            PopupRequest.OPEN -> if (mapReadyToOpen()) mc.gui.setScreen(DungeonMapScreen())
             PopupRequest.CLOSE -> mc.gui.setScreen(null)
             PopupRequest.NONE -> return false
         }

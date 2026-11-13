@@ -1,6 +1,5 @@
 package com.github.noamm9.untitled.features.impl.critaddons
 
-import com.github.noamm9.utils.location.LocationUtils
 import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
@@ -16,10 +15,10 @@ internal class DungeonMapScreen : Screen(Component.literal("Dungeon Map")) {
         ctx.fill(0, 0, width, height, 0x59000000)
         ctx.fill(x, y, x + w, y + h, 0xff18181b.toInt())
         ctx.text(font, title, x + 16, y + 16, -1)
-        if (LocationUtils.inDungeon && !LocationUtils.inBoss) {
-            NoammMapAdapter.draw(ctx, x + 16, y + 36, w - 32, h - 88)
-        } else {
-            ctx.text(font, "No dungeon map", x + 16, y + 36, -1)
+        when (NoammMapAdapter.availability()) {
+            MapAvailability.LIVE -> NoammMapAdapter.draw(ctx, x + 16, y + 36, w - 32, h - 88)
+            MapAvailability.OUTSIDE -> ctx.text(font, "No dungeon map", x + 16, y + 36, -1)
+            MapAvailability.EMPTY -> ctx.text(font, "No map information yet", x + 16, y + 36, -1)
         }
         val key = DungeonMapPopup.popupKey.displayName()
         ctx.text(font, "$key: Close map · Esc: Stop automation and clear queued work", x + 16, y + h - 40, -1)
