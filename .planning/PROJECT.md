@@ -177,7 +177,7 @@ The public Noamm release tag `1.3.5` points to `460cfaf5d8760fa1146f5d2433715b7e
 | Gravity Storm mandatory; missing resources stop rather than degrade | Explicit required Blood Camp and failure behavior | User approved |
 | Semantic releases per completed feature/fix | Every finished increment needs an installable, attributable JAR | User approved; release setup pending |
 | Autonomous GSD execution with standard phases, parallel agents and inherited models | User accepted the recommended workflow settings, including research, independent plan checks and verification | User approved |
-| Vertical MVP phases with all 53 v1 requirements | User explicitly approved the scoped requirements and selected usable end-to-end increments | User approved; roadmap pending |
+| Vertical MVP phases with all 53 v1 requirements | User explicitly approved the scoped requirements and selected usable end-to-end increments | User approved; six-phase roadmap approved |
 
 ## Evolution
 
@@ -197,4 +197,4 @@ After each milestone:
 4. Update compatibility, validation, release and integration context.
 
 ---
-*Last updated: 2026-11-12 after explicit approval of workflow settings, all 53 v1 requirements and Vertical MVP structure. Roadmap approval and implementation are still pending.*
+*Last updated: 2026-11-12 after explicit approval of workflow settings, all 53 v1 requirements and Vertical MVP structure. The six-phase roadmap is approved; project initialization is complete and Phase 1 discussion/planning is next. Implementation has not begun.*

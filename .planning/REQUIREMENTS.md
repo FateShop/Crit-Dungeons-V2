@@ -122,9 +122,65 @@ A completed feature/fix delivers the full agreed behavior through existing Noamm
 
 ## Traceability
 
-Not yet assigned. Roadmap creation will map every approved v1 ID to exactly one owning phase; other phases may depend on or exercise it without duplicating ownership.
+Each approved v1 ID has exactly one owning phase. Later phases consume and exercise earlier capabilities without duplicating ownership. The six-phase roadmap is user-approved; no requirement is implemented or verified.
 
-**Coverage:** 53 approved v1 requirements; 0 mapped before roadmap creation; 53 awaiting mapping.
+| Requirement | Phase | Status |
+| --- | --- | --- |
+| BLOOD-01 | Phase 5 | Pending |
+| BLOOD-02 | Phase 5 | Pending |
+| BLOOD-03 | Phase 5 | Pending |
+| BLOOD-04 | Phase 5 | Pending |
+| BLOOD-05 | Phase 5 | Pending |
+| BLOOD-06 | Phase 5 | Pending |
+| CORE-01 | Phase 6 | Pending |
+| CORE-02 | Phase 1 | Pending |
+| CORE-03 | Phase 1 | Pending |
+| CORE-04 | Phase 1 | Pending |
+| CORE-05 | Phase 1 | Pending |
+| DIAG-01 | Phase 2 | Pending |
+| DIAG-02 | Phase 4 | Pending |
+| DIAG-03 | Phase 1 | Pending |
+| LOAD-01 | Phase 2 | Pending |
+| LOAD-02 | Phase 2 | Pending |
+| LOAD-03 | Phase 2 | Pending |
+| LOAD-04 | Phase 2 | Pending |
+| MAP-01 | Phase 1 | Pending |
+| MAP-02 | Phase 1 | Pending |
+| MAP-03 | Phase 2 | Pending |
+| MAP-04 | Phase 3 | Pending |
+| MAP-05 | Phase 4 | Pending |
+| NAV-01 | Phase 2 | Pending |
+| NAV-02 | Phase 2 | Pending |
+| NAV-03 | Phase 2 | Pending |
+| NAV-04 | Phase 2 | Pending |
+| NAV-05 | Phase 2 | Pending |
+| NAV-06 | Phase 2 | Pending |
+| NAV-07 | Phase 2 | Pending |
+| NAV-08 | Phase 2 | Pending |
+| REL-01 | Phase 1 | Pending |
+| REL-02 | Phase 1 | Pending |
+| RUN-01 | Phase 6 | Pending |
+| RUN-02 | Phase 6 | Pending |
+| RUN-03 | Phase 3 | Pending |
+| RUN-04 | Phase 6 | Pending |
+| RUN-05 | Phase 6 | Pending |
+| RUN-06 | Phase 6 | Pending |
+| SEC-01 | Phase 4 | Pending |
+| SEC-02 | Phase 4 | Pending |
+| SEC-03 | Phase 4 | Pending |
+| SEC-04 | Phase 4 | Pending |
+| SEC-05 | Phase 4 | Pending |
+| SEC-06 | Phase 4 | Pending |
+| SEC-07 | Phase 4 | Pending |
+| TASK-01 | Phase 2 | Pending |
+| TASK-02 | Phase 1 | Pending |
+| TASK-03 | Phase 1 | Pending |
+| TASK-04 | Phase 1 | Pending |
+| TASK-05 | Phase 1 | Pending |
+| TASK-06 | Phase 6 | Pending |
+| TASK-07 | Phase 1 | Pending |
+
+**Coverage:** 53/53 approved v1 requirements mapped exactly once; 0 unmapped; 0 duplicates. No scope deferred.
 
 ---
-*Last updated: 2026-11-12 after explicit user approval of all 53 requirements and selection of Vertical MVP project structure. Roadmap creation is next.*
+*Last updated: 2026-11-12 after user approval of the six-phase Vertical MVP roadmap mapping all 53 approved requirements.*
