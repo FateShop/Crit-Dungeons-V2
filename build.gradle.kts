@@ -129,9 +129,12 @@ val devControlSources = sourceSets.create("devControl") {
     runtimeClasspath += sourceSets.main.get().output + sourceSets.main.get().runtimeClasspath
 }
 
+val fixtureArchive = layout.buildDirectory.file("dev-control/fixture.jar")
 val devControlJar = tasks.register<Jar>("devControlJar") {
     dependsOn(devControlSources.classesTaskName)
     archiveClassifier.set("dev-control-fixture")
+    destinationDirectory.set(layout.buildDirectory.dir("dev-control"))
+    archiveFileName.set("fixture.jar")
     from(devControlSources.output)
 }
 
@@ -140,7 +143,7 @@ loom {
         client()
         sourceSet.set(devControlSources.name)
         systemProperties.put("crit.controlFixture", "true")
-        systemProperties.put("fabric.addMods", devControlJar.flatMap { it.archiveFile }.map { it.asFile.absolutePath })
+        systemProperties.put("fabric.addMods", fixtureArchive.map { it.asFile.absolutePath })
     }
 }
 tasks.named("runControlFixture") { dependsOn(devControlJar) }

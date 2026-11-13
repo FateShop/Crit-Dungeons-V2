@@ -30,4 +30,27 @@ fun runDevFixture() {
     check(fixture.start(1000))
     fixture.tick(121001)
     check(coordinator.state.activeTaskId == null)
+    check(fixture.start(122000))
+    val old = coordinator.currentToken()!!
+    val oldLease = coordinator.acquire(old, setOf(Resource.MOVEMENT))!!
+    coordinator.externalBusy(Resource.entries.toSet())
+    fixture.tick(122001)
+    check(fixture.heartbeats == 0)
+    var sentinel = 0
+    coordinator.emergencyStop(1)
+    sentinel++ // Unrelated queue ownership remains outside Crit cancellation.
+    check(sentinel == 1 && !coordinator.effect(oldLease, Resource.MOVEMENT) { error("stale effect") })
+    coordinator.terminate(1)
+    coordinator.observeRun(2)
+    coordinator.externalBusy(emptySet())
+    check(fixture.start(123000))
+    coordinator.pause(2, PauseReason.DEATH, true)
+    fixture.tick(123001)
+    check(fixture.heartbeats == 0)
+    coordinator.pause(2, PauseReason.DEATH, false)
+    check(coordinator.revalidate(ObservedState))
+    fixture.tick(123002)
+    check(fixture.heartbeats == 1)
+    coordinator.terminate(2)
+    check(coordinator.state.activeTaskId == null && coordinator.state.pendingTaskIds.isEmpty())
 }
