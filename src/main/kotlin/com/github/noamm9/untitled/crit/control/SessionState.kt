@@ -1,6 +1,6 @@
 package com.github.noamm9.untitled.crit.control
 
-enum class PauseReason { GUI, MANUAL, DEATH }
+enum class PauseReason { GUI, MANUAL, DEATH, EXTERNAL }
 
 data class SessionState(
     val runEpoch: Long? = null,

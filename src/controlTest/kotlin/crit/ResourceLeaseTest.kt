@@ -22,7 +22,10 @@ fun runResourceLeases() {
     check(!session.effect(lease, Resource.AIM) { effects++ })
     check(session.acquire(token, pair) == null)
     session.externalBusy(emptySet())
-    val replacement = session.acquire(token, pair)!!
+    check(session.currentToken() == null && session.acquire(token, pair) == null)
+    check(session.state.requiresRevalidation)
+    check(session.revalidate(ObservedState))
+    val replacement = session.acquire(session.currentToken()!!, pair)!!
     check(!session.release(lease))
     session.pause(1, PauseReason.GUI, true)
     check(!session.effect(replacement, Resource.MOVEMENT) { effects++ })

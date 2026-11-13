@@ -77,7 +77,20 @@ class SessionCoordinator {
 
     fun release(lease: ResourceLease) = leases.release(lease)
 
-    fun externalBusy(resources: Set<Resource>) = leases.externalBusy(resources)
+    fun externalBusy(resources: Set<Resource>) {
+        leases.externalBusy(resources)
+        state.runEpoch?.let { pause(it, PauseReason.EXTERNAL, resources.isNotEmpty()) }
+    }
+
+    fun cancelOwner(owner: String) {
+        val owned = tasks.filter { it.ownerId == owner }
+        if (owned.isEmpty()) return
+        fence()
+        tasks.removeAll { it.ownerId == owner }
+        owned.forEach { it.cancel() }
+        publishTasks()
+        state = state.copy(requiresRevalidation = tasks.isNotEmpty())
+    }
 
     fun effect(lease: ResourceLease, resource: Resource, perform: () -> Unit): Boolean {
         if (currentToken() != lease.token || !leases.owns(lease, resource)) return false
