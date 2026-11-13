@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "stage": "candidate",
+  "stage": "published",
   "source": {
     "repository": "https://github.com/FateShop/Crit-Dungeons-V2",
     "commit": "4a2692201cdf62be22b5f5f1ad93d3fcbb744a9d",
@@ -8,7 +8,12 @@
     "tag": "v0.1.0",
     "cleanBuildInputs": true
   },
-  "target": { "minecraft": "26.2", "java": 25, "noamm": "1.3.5", "classifier": "cheat" },
+  "target": {
+    "minecraft": "26.2",
+    "java": 25,
+    "noamm": "1.3.5",
+    "classifier": "cheat"
+  },
   "dependency": {
     "artifact": "NoammAddons-1.3.5-26.2-cheat.jar",
     "sha256": "6212888ddce467fb0da81bc3df9e285c39867fc8aa9547bb4976eec911f3f6fd",
@@ -16,7 +21,7 @@
   },
   "artifact": {
     "path": "build/libs/Crit Addons-0.1.0-26.2-cheat.jar",
-    "name": "Crit Addons-0.1.0-26.2-cheat.jar",
+    "name": "Crit.Addons-0.1.0-26.2-cheat.jar",
     "size": 103417,
     "sha256": "7bbf919360b06ef7f0c72659f5ffefaaae91e189ba3e9186b94e016a778bfebe"
   },
@@ -39,11 +44,11 @@
     "candidateInstalledIntoPrism": false
   },
   "release": {
-    "url": null,
-    "assetUrl": null,
-    "tagCommit": null,
-    "downloadSha256": null,
-    "downloadVerified": false,
-    "published": false
+    "url": "https://github.com/FateShop/Crit-Dungeons-V2/releases/tag/v0.1.0",
+    "assetUrl": "https://github.com/FateShop/Crit-Dungeons-V2/releases/download/v0.1.0/Crit.Addons-0.1.0-26.2-cheat.jar",
+    "tagCommit": "4a2692201cdf62be22b5f5f1ad93d3fcbb744a9d",
+    "downloadSha256": "7bbf919360b06ef7f0c72659f5ffefaaae91e189ba3e9186b94e016a778bfebe",
+    "downloadVerified": true,
+    "published": true
   }
 }
