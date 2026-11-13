@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "crit_control_fixture",
+  "version": "1.0.0",
+  "name": "Crit Control Development Fixture",
+  "environment": "client",
+  "entrypoints": {
+    "client": [{ "value": "com.github.noamm9.untitled.dev.CritControlFixture", "adapter": "kotlin" }]
+  },
+  "depends": { "fabricloader": "*", "fabric-api": "*", "untitled": "*" }
+}

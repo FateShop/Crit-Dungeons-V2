@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.zip.ZipFile
 
 plugins {
     kotlin("jvm")
@@ -119,6 +120,48 @@ tasks.register<JavaExec>("controlTest") {
     dependsOn(controlTestSources.classesTaskName)
     classpath = controlTestSources.runtimeClasspath
     mainClass.set("crit.ControlTestMainKt")
+}
+
+val devControlSources = sourceSets.create("devControl") {
+    kotlin.setSrcDirs(listOf(rootProject.file("src/devControl/kotlin")))
+    resources.setSrcDirs(listOf(rootProject.file("src/devControl/resources")))
+    compileClasspath += sourceSets.main.get().output + sourceSets.main.get().compileClasspath
+    runtimeClasspath += sourceSets.main.get().output + sourceSets.main.get().runtimeClasspath
+}
+
+val devControlJar = tasks.register<Jar>("devControlJar") {
+    dependsOn(devControlSources.classesTaskName)
+    archiveClassifier.set("dev-control-fixture")
+    from(devControlSources.output)
+}
+
+loom {
+    runs.register("controlFixture") {
+        client()
+        sourceSet.set(devControlSources.name)
+        systemProperties.put("crit.controlFixture", "true")
+        systemProperties.put("fabric.addMods", devControlJar.flatMap { it.archiveFile }.map { it.asFile.absolutePath })
+    }
+}
+tasks.named("runControlFixture") { dependsOn(devControlJar) }
+
+tasks.register("verifyControlFixtureIsolation") {
+    group = "verification"
+    dependsOn(devControlSources.classesTaskName, tasks.jar)
+    doLast {
+        val archive = tasks.jar.get().archiveFile.get().asFile
+        ZipFile(archive).use { zip ->
+            check(zip.entries().asSequence().none { it.name.contains("/dev/") || it.name.contains("Fixture") })
+            val metadata = zip.getInputStream(zip.getEntry("fabric.mod.json")).bufferedReader().readText()
+            check(!metadata.contains("crit_control_fixture") && !metadata.contains("CritControlFixture"))
+        }
+        loom.runs.filter { it.name != "controlFixture" }.forEach { run ->
+            check(run.sourceSet.get() != devControlSources.name)
+            check(!run.systemProperties.get().containsKey("crit.controlFixture"))
+        }
+        check(sourceSets.main.get().runtimeClasspath.files.none { it in devControlSources.output.files })
+        println("Fixture isolation passed: ${archive.name}")
+    }
 }
 
 tasks.withType<Jar>().configureEach {
