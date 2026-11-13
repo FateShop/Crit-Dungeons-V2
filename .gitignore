@@ -1,0 +1,22 @@
+# Gradle and Kotlin
+.gradle/
+.kotlin/
+build/
+
+# Local IDE files
+.idea/
+.vscode/
+*.iml
+/out/
+
+# Minecraft runtime data
+run/
+
+# JVM diagnostics
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr
+
+# OS metadata
+.DS_Store
