@@ -4,19 +4,25 @@ reviewed: 2026-11-13T09:13:00Z
 depth: standard
 diff_base: c34f8b1
 reviewed_head: 83eda0c
-files_reviewed: 34
+followup_reviewed_head: 12cfff2
+files_reviewed: 39
 files_reviewed_list:
   - build.gradle.kts
   - docs/implementation-ownership.md
   - docs/noamm-reuse-evidence.md
+  - docs/phase1-control-fixture.md
   - gradle.properties
   - src/controlTest/kotlin/crit/ClientAdapterTest.kt
   - src/controlTest/kotlin/crit/ControlTestMain.kt
+  - src/controlTest/kotlin/crit/DevFixtureTest.kt
   - src/controlTest/kotlin/crit/InputLifecycleTest.kt
   - src/controlTest/kotlin/crit/MapContractTest.kt
   - src/controlTest/kotlin/crit/MapLayoutTest.kt
   - src/controlTest/kotlin/crit/ResourceLeaseTest.kt
   - src/controlTest/kotlin/crit/SessionControlTest.kt
+  - src/devControl/kotlin/com/github/noamm9/untitled/dev/CritControlFixture.kt
+  - src/devControl/kotlin/com/github/noamm9/untitled/dev/FixtureSession.kt
+  - src/devControl/resources/fabric.mod.json
   - src/main/java/com/github/noamm9/untitled/mixins/ActionUtilsAccessor.java
   - src/main/java/com/github/noamm9/untitled/mixins/MixinCategoryPanel.java
   - src/main/java/com/github/noamm9/untitled/mixins/MixinCategoryType.java
@@ -54,16 +60,24 @@ unresolved_findings_after_remediation: 0
 
 **Reviewed:** 2026-11-13T09:13:00Z
 **Depth:** standard
-**Files Reviewed:** 34
+**Files Reviewed:** 39 including follow-up
 **Status:** issues_found
 
 ## Narrative Findings (AI reviewer)
 
 ## Summary
 
-Reviewed the Phase 1 map and shared controls delivered through `83eda0c`, using `c34f8b1` as the explicit base. Read all existing changed files, the deleted template feature, project rules, requirements, phase context and 01-01 through 01-04 summaries. No project skill directories were present. Reviewed the map renderer, Resolution scaling, input injection descriptors, ActionUtils fields and scheduling behavior, and DungeonListener run-end delivery against the exact installed NoammAddons 1.3.5 Minecraft 26.2 artifact using read-only JDK 25 javap inspection.
+Reviewed the Phase 1 map and shared controls delivered through `83eda0c`, using `c34f8b1` as the explicit base. Read all existing changed files, the deleted template feature, project rules, requirements, phase context and 01-01 through 01-04 summaries. Follow-up review extends through `12cfff2`, including 01-06 and final 01-04 remedies. No project skill directories were present. Reviewed the map renderer, Resolution scaling, input injection descriptors, ActionUtils fields and scheduling behavior, and DungeonListener run-end delivery against the exact installed NoammAddons 1.3.5 Minecraft 26.2 artifact using read-only JDK 25 javap inspection.
 
-Three defects affect lifecycle isolation or coordination with Noamm. Findings and line numbers below describe the submitted `83eda0c` snapshot, not subsequent concurrent fixes. Plan 01-06 development-fixture additions are outside this snapshot and require their own review. No source files were modified by the reviewer, no dependency was executed, and no game was launched. No structural pre-pass was supplied.
+Three defects affect lifecycle isolation or coordination with Noamm. Findings and line numbers below describe the submitted `83eda0c` snapshot, not subsequent concurrent fixes. No source files were modified by the reviewer, no dependency was executed, and no game was launched. No structural pre-pass was supplied.
+
+## Follow-up: 01-06 fixture and final remedies
+
+Read both development Kotlin files, fixture metadata, pure regression, command guide, updated Gradle source sets/runs/isolation check, and the final production coordinator/adapter changes through `12cfff2`. No additional actionable defects were found.
+
+The development entrypoint requires both Fabric development mode and the explicit property before registering callbacks or commands. Its guarded action increments a memory counter; it issues no movement, aim, attack, item-use or screen-close operation. Explicit fatal/selection commands exercise the production session controls, and the sentinel only schedules an independent memory/log marker through Noamm. Heartbeat execution has a 120-second wall bound and owner-scoped reset. Actual input and dungeon facts remain production observations rather than fixture overrides.
+
+Inspected `build/libs/Crit Addons-1.0-26.2-cheat.jar` directly with .NET ZIP APIs: zero `/dev/`, `Fixture`, or `crit_control_fixture` entries; its fabric.mod.json contains only the main Untitled client entrypoint and no fixture registration. Main output and ordinary run configuration do not include the development source set/property. This confirms exclusion for that built artifact and reviewed configuration; it is not a hash/provenance claim for a future release JAR. Full live map/death/revival/coexistence/all-floor acceptance remains outside source review. The coordinator's prior startup logs were not treated as proof of those behaviors.
 
 ## Critical Issues
 
@@ -108,4 +122,4 @@ Three defects affect lifecycle isolation or coordination with Noamm. Findings an
 ---
 
 _Reviewer: /root/review_sol (gsd-code-reviewer)_
-_Review scope is the submitted 01-01 through 01-04 snapshot. All three discovered findings have source-level remediation in a2aeb3f/f4bb3b3, with zero unresolved findings from this review. Counts retain the defects discovered in the submitted snapshot. Plan 01-06 remains outside this review; build success alone does not establish applied-mixin or live-client correctness._
+_Review includes 01-01 through 01-04 plus the 01-06 follow-up through 12cfff2. All three discovered findings have source-level remediation in a2aeb3f/f4bb3b3, with zero unresolved findings from this review. Counts retain the defects discovered in the original snapshot. Build success alone does not establish applied-mixin or live-client correctness._
