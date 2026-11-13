@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v0.1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-11-13T09:08:44.147Z"
+last_updated: "2026-11-13T09:16:05.114Z"
 last_activity: 2026-11-13
 progress:
   total_phases: 6
   completed_phases: 0
   total_plans: 6
-  completed_plans: 4
-  percent: 67
+  completed_plans: 5
+  percent: 83
 ---
 
 # Project State
@@ -20,22 +20,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-11-12)
 
 **Core value:** Execute reliable, time-efficient dungeon tasks through existing Noamm functionality, without duplicating it or misrepresenting unknown map information, route optimality, or verification.
-**Current focus:** Phase 1 production map/control adapters built; isolated development fixture and live acceptance remain.
+**Current focus:** Phase 1 production map/control and isolated fixture built; 01-05 acceptance/release preparation next.
 
 ## Current Position
 
 Phase: 1 of 6 (Live Map and Safe Task Control)
-Plan: 4 of 6 complete; five execution waves planned
-Status: Executing Phase 1; 01-04 implementation complete, live verification pending
+Plan: 5 of 6 complete; five execution waves planned
+Status: Executing 01-05; 01-06 fixture and limited offline startup verified
 Last activity: 2026-11-13
 
-Progress: [███████░░░] 67%
+Progress: [████████░░] 83%
 
 ## Performance Metrics
 
-- Total plans completed: 4 of 6 in Phase 1
+- Total plans completed: 5 of 6 in Phase 1
 - Build/test evidence: target 26.2 map, session, leases, input and client-adapters suites pass.
-- Live verification and release remain pending; isolated fixture is next.
+- Fixture compilation, full harness and production archive isolation pass; authenticated dungeon checks and release remain pending.
 
 ## Accumulated Context
 
@@ -77,3 +77,4 @@ Resume file: None
 | Phase | Plan | Duration | Notes |
 |-------|------|----------|-------|
 | Phase 01 P03 | 10min | 2 tasks | 10 files |
+| Phase 01 P06 | 9min | 2 tasks | 7 files |

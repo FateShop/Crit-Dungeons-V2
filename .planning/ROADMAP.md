@@ -47,7 +47,7 @@ Every completed feature or fix receives its own semantic tag, GitHub Release, co
 4. Disconnect, dungeon exit, run end and boss entry clear Crit state; simultaneous resource requests cannot compete for movement, aim, hotbar, GUI or combat, and unrelated Noamm work continues.
 5. The completed map/control feature is installable from its verified v0.1.0 release JAR with source/version evidence and honest validation notes; distinct research/implementation ownership and reuse evidence are reviewable.
 **Planning gates:** Phase 1 rearming and popup/GUI pause semantics are resolved by 01-CONTEXT.md decisions D-01–D-13. Record explicit decisions for Blood GUI deadlines, impossible deadlines, no-LOS secret feasibility and Auto Clear post-camp behavior before their affected implementation; ownership of DIAG-03 here does not permit silently defaulting later gates. A controlled task session validates coordinator behavior; it is not completion of travel, combat or secrets.
-**Plans:** 4/6 plans executed
+**Plans:** 5/6 plans executed
 
 **Wave 1**
 - [x] 01-01-PLAN.md — Ownership, harness, persistent settings and live map skeleton.
@@ -60,7 +60,7 @@ Every completed feature or fix receives its own semantic tag, GitHub Release, co
 - [x] 01-04-PLAN.md — Physical input, lifecycle and scoped client integration.
 
 **Wave 4 *(blocked on Wave 3 completion)***
-- [ ] 01-06-PLAN.md — Isolated production-backed development control fixture.
+- [x] 01-06-PLAN.md — Isolated production-backed development control fixture.
 
 **Wave 5 *(blocked on Wave 4 completion)***
 - [ ] 01-05-PLAN.md — Acceptance evidence and verified v0.1.0 delivery.
@@ -145,7 +145,7 @@ Every completed feature or fix receives its own semantic tag, GitHub Release, co
 
 | Phase | Plans Complete | Status | Completed |
 | --- | --- | --- | --- |
-| 1. Live Map and Safe Task Control | 4/6 | In Progress|  |
+| 1. Live Map and Safe Task Control | 5/6 | In Progress|  |
 | 2. Time-Optimized Room Travel | 0/TBD | Not started | - |
 | 3. Mob-Only Room Clearing | 0/TBD | Not started | - |
 | 4. Proven Secret Collection | 0/TBD | Not started | - |
