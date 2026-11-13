@@ -5,8 +5,6 @@ import com.github.noamm9.utils.location.LocationUtils
 import com.github.noamm9.utils.dungeons.DungeonListener
 import com.github.noamm9.ui.notification.NotificationManager
 import com.github.noamm9.untitled.mixins.ActionUtilsAccessor
-import com.github.noamm9.event.EventBus.register
-import com.github.noamm9.event.impl.DungeonEvent
 import com.github.noamm9.utils.dungeons.map.utils.ScanUtils
 import com.github.noamm9.untitled.features.impl.critaddons.DungeonMapScreen
 
@@ -17,13 +15,7 @@ object ClientControlAdapter {
     private val tickListeners = mutableSetOf<() -> Unit>()
     private val input = ManualInputState()
     private var tick = 0L
-    @Volatile private var publishedEpoch: Long? = null
-    fun initialize() {
-        register<DungeonEvent.RunEndedEvent> {
-            val epoch = publishedEpoch
-            observe { if (epoch != null && coordinator.state.runEpoch == epoch) lifecycle.terminate() }
-        }
-    }
+    fun initialize() = Unit // Object bootstrap; authoritative state is sampled on the client thread.
     private fun observe(action: () -> Unit) {
         val mc = Minecraft.getInstance()
         if (mc.isSameThread) action() else mc.execute(action)
@@ -42,7 +34,6 @@ object ClientControlAdapter {
     fun select(selection: String?) { coordinator.select(selection) }
     @JvmStatic fun worldChanging() {
         lifecycle.observe(false, false, false, false, null)
-        publishedEpoch = null
         closeMap()
     }
     private fun closeMap() {
@@ -57,7 +48,6 @@ object ClientControlAdapter {
         val mc = Minecraft.getInstance()
         lifecycle.observe(mc.level != null && mc.connection != null, LocationUtils.inDungeon,
             LocationUtils.inBoss, DungeonListener.dungeonEnded, DungeonListener.dungeonStartTime?.real)
-        publishedEpoch = coordinator.state.runEpoch
         if (lifecycle.terminated) closeMap()
         input.focus(mc.isWindowActive)
         updateManual()
@@ -73,8 +63,10 @@ object ClientControlAdapter {
     fun effect(lease: ResourceLease, resource: Resource, perform: () -> Unit): Boolean {
         check(Minecraft.getInstance().isSameThread)
         refreshFacts()
-        coordinator.externalBusy(if (externalBusy()) Resource.entries.toSet() else emptySet())
-        return coordinator.effect(lease, resource, perform)
+        return synchronized(ActionUtilsAccessor.critLock()) {
+            coordinator.externalBusy(if (externalBusy()) Resource.entries.toSet() else emptySet())
+            coordinator.effect(lease, resource, perform)
+        }
     }
     @JvmStatic fun tick() {
         tick++
