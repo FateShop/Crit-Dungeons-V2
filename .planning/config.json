@@ -8,12 +8,12 @@
   "exa_search": false,
   "phase_naming": "sequential",
   "project_code": null,
-  "claude_md_path": "./CLAUDE.md",
+  "claude_md_path": "./AGENTS.md",
   "git": {
     "branching_strategy": "none",
-    "create_tag": true,
-    "phase_branch_template": "gsd/phase-{phase}-{slug}",
-    "milestone_branch_template": "gsd/{milestone}-{slug}",
+    "create_tag": false,
+    "phase_branch_template": "codex/phase-{phase}-{slug}",
+    "milestone_branch_template": "codex/{milestone}-{slug}",
     "quick_branch_template": null
   },
   "workflow": {
@@ -30,7 +30,7 @@
     "node_repair_budget": 2,
     "ui_phase": true,
     "ui_safety_gate": true,
-    "text_mode": false,
+    "text_mode": true,
     "research_before_questions": false,
     "discuss_mode": "discuss",
     "skip_discuss": false,
