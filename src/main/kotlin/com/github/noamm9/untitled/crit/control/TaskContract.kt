@@ -9,6 +9,7 @@ interface ActualState
 interface TaskContract {
     val taskId: String
     val ownerId: String
+    val requiresLoadout: Boolean get() = false
     fun preserve()
     fun cancel()
     fun revalidate(actual: ActualState): Boolean

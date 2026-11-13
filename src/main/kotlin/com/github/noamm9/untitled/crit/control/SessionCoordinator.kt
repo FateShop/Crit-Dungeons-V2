@@ -2,6 +2,7 @@ package com.github.noamm9.untitled.crit.control
 
 /** Mutations and task hooks run on the client thread. Workers return results with their original token. */
 class SessionCoordinator {
+    private val leases = ResourceLeases()
     private val tasks = ArrayDeque<TaskContract>()
     private var latestEpoch = Long.MIN_VALUE
     var state = SessionState()
@@ -71,6 +72,38 @@ class SessionCoordinator {
         return CancellationToken(task.ownerId, task.taskId, epoch, state.executionGeneration)
     }
 
+    fun acquire(token: CancellationToken, resources: Set<Resource>): ResourceLease? =
+        if (currentToken() == token) leases.acquire(token, resources) else null
+
+    fun release(lease: ResourceLease) = leases.release(lease)
+
+    fun externalBusy(resources: Set<Resource>) = leases.externalBusy(resources)
+
+    fun effect(lease: ResourceLease, resource: Resource, perform: () -> Unit): Boolean {
+        if (currentToken() != lease.token || !leases.owns(lease, resource)) return false
+        perform()
+        return true
+    }
+
+    fun requiredLoadoutToken(): CancellationToken? {
+        val task = tasks.firstOrNull() ?: return null
+        val epoch = state.runEpoch ?: return null
+        if (!task.requiresLoadout || state.stoppedRunEpoch != null || state.pauseReasons != setOf(PauseReason.GUI)) return null
+        return CancellationToken(task.ownerId, task.taskId, epoch, state.executionGeneration)
+    }
+
+    /** Only this narrow operation may close a conflicting GUI while the objective stays paused. */
+    fun closeForRequiredLoadout(token: CancellationToken, close: () -> Unit): Boolean {
+        if (requiredLoadoutToken() != token) return false
+        val lease = leases.acquire(token, setOf(Resource.GUI)) ?: return false
+        try {
+            close()
+        } finally {
+            leases.release(lease)
+        }
+        return true
+    }
+
     fun complete(token: CancellationToken): Boolean {
         if (currentToken() != token) return false
         fence()
@@ -80,6 +113,7 @@ class SessionCoordinator {
     }
 
     private fun fence() {
+        leases.revoke()
         state = state.copy(executionGeneration = state.executionGeneration + 1)
     }
 
