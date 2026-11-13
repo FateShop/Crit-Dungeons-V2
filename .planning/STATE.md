@@ -20,13 +20,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-11-12)
 
 **Core value:** Execute reliable, time-efficient dungeon tasks through existing Noamm functionality, without duplicating it or misrepresenting unknown map information, route optimality, or verification.
-**Current focus:** Phase 1 production map/control and isolated fixture built; 01-05 acceptance/release preparation next.
+**Current focus:** v0.1.0 candidate verified at source 4a2692201cdf62be22b5f5f1ad93d3fcbb744a9d; coordinator publication and remote download verification remain.
 
 ## Current Position
 
 Phase: 1 of 6 (Live Map and Safe Task Control)
 Plan: 5 of 6 complete; five execution waves planned
-Status: Executing 01-05; 01-06 fixture and limited offline startup verified
+Status: Executing 01-05; tasks 1 and 2 verified, release publication pending
 Last activity: 2026-11-13
 
 Progress: [████████░░] 83%
@@ -50,7 +50,7 @@ Progress: [████████░░] 83%
 
 ### Pending Todos
 
-- Execute 01-06 isolated fixture, then 01-05 live acceptance/release.
+- Complete 01-05 publication and independent remote tag/download verification. Candidate SHA256: 7bbf919360b06ef7f0c72659f5ffefaaae91e189ba3e9186b94e016a778bfebe.
 - Ownership replacement recorded: /root/impl_coordinator_sol owns shared control and fixture; /root/impl_map_sol owns map implementation.
 
 ### Blockers/Concerns
