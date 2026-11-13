@@ -104,6 +104,23 @@ tasks.withType<KotlinCompile>().configureEach {
     compilerOptions.jvmTarget.set(JvmTarget.fromTarget(targetJavaVersion.toString()))
 }
 
+val controlTestSources = sourceSets.create("controlTest") {
+    kotlin.setSrcDirs(listOf(rootProject.file("src/controlTest/kotlin"), rootProject.file("src/main/kotlin")))
+    kotlin.include("crit/**", "**/critaddons/MapContract*.kt")
+}
+
+dependencies {
+    add(controlTestSources.implementationConfigurationName, kotlin("stdlib"))
+}
+
+tasks.register<JavaExec>("controlTest") {
+    group = "verification"
+    description = "Runs the isolated JVM control contracts."
+    dependsOn(controlTestSources.classesTaskName)
+    classpath = controlTestSources.runtimeClasspath
+    mainClass.set("crit.ControlTestMainKt")
+}
+
 tasks.withType<Jar>().configureEach {
     archiveVersion.set("${project.version}-$minecraftVersion")
 }
