@@ -9,6 +9,9 @@ import com.github.noamm9.utils.location.LocationUtils
 import net.minecraft.client.gui.GuiGraphicsExtractor
 
 internal object NoammMapAdapter {
+    // Seed from the exact pinned 1.3.5 contract, then retain actual returned bounds per mode.
+    // The renderer draws while measuring, so a separate measuring draw would duplicate effects.
+    private val bounds = mutableMapOf(false to (128f to 128f), true to (128f to 140f))
     fun availability(): MapAvailability {
         val active = LocationUtils.inDungeon && !LocationUtils.inBoss
         return MapContract.availability(active, active && DungeonScanner.dungeonList.any { it !is Unknown })
@@ -16,23 +19,16 @@ internal object NoammMapAdapter {
 
     fun draw(ctx: GuiGraphicsExtractor, x: Int, y: Int, width: Int, height: Int) {
         if (width <= 0 || height <= 0) return
-        // The pinned renderer returns 140 even with extraInfo=false when its background is extended.
-        val mapHeight = if (MapConfig.mapExtraInfo.value) 140f else 128f
-        val scale = minOf(width / 128f, height / mapHeight)
-        Resolution.push(ctx)
-        try {
+        val extra = MapConfig.mapExtraInfo.value
+        val fit = MapFit.inside(x, y, width, height, bounds.getValue(extra))
+        withMapStack({ Resolution.push(ctx) }, { Resolution.pop(ctx) }) {
             val pose = ctx.pose()
-            pose.pushMatrix()
-            try {
+            withMapStack({ pose.pushMatrix() }, { pose.popMatrix() }) {
                 pose.scale(1f / Resolution.scale)
-                pose.translate(x + (width - 128f * scale) / 2f, y + (height - mapHeight * scale) / 2f)
-                pose.scale(scale)
-                MapContract.drawLive { example, extra -> MapRenderer.draw(ctx, example, extra) }
-            } finally {
-                pose.popMatrix()
+                pose.translate(fit.x, fit.y)
+                pose.scale(fit.scale)
+                bounds[extra] = MapContract.drawLive { example, extraInfo -> MapRenderer.draw(ctx, example, extraInfo) }
             }
-        } finally {
-            Resolution.pop(ctx)
         }
     }
 }
