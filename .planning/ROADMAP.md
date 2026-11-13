@@ -1,6 +1,6 @@
 # Roadmap: Crit Addons
 
-**Status:** Approved by user — ready for Phase 1 discussion and planning
+**Status:** Approved by user — Phase 1 planned and ready to execute
 **Granularity:** standard
 **Structure:** Vertical MVP; all 53 approved v1 requirements retained.
 
@@ -36,7 +36,7 @@ Every completed feature or fix receives its own semantic tag, GitHub Release, co
 ## Phase Details
 
 ### Phase 1: Live Map and Safe Task Control
-**Goal:** Player can inspect the live Noamm dungeon map through Crit Addons and safely pause, cancel and end a coordinated task session.
+**Goal:** As a dungeon player using Crit Addons, I want to inspect the live dungeon map and safely control a coordinated task session, so that I can understand the dungeon and retain control over automation.
 **Mode:** mvp
 **Depends on:** Nothing (first phase)
 **Requirements:** CORE-02, CORE-03, CORE-04, CORE-05, MAP-01, MAP-02, TASK-02, TASK-03, TASK-04, TASK-05, TASK-07, DIAG-03, REL-01, REL-02
@@ -46,8 +46,24 @@ Every completed feature or fix receives its own semantic tag, GitHub Release, co
 3. In a controlled coordinated task session, Esc clears work without spontaneous restart; GUI/death pauses preserve objectives and resume according to explicitly agreed rules, while ordinary manual movement does not cancel.
 4. Disconnect, dungeon exit, run end and boss entry clear Crit state; simultaneous resource requests cannot compete for movement, aim, hotbar, GUI or combat, and unrelated Noamm work continues.
 5. The completed map/control feature is installable from its verified v0.1.0 release JAR with source/version evidence and honest validation notes; distinct research/implementation ownership and reuse evidence are reviewable.
-**Planning gates:** Resolve rearming after Esc/fatal errors and popup/GUI pause semantics before coordinator execution. Record explicit decisions for Blood GUI deadlines, impossible deadlines, no-LOS secret feasibility and Auto Clear post-camp behavior before their affected implementation; ownership of DIAG-03 here does not permit silently defaulting later gates. A controlled task session validates coordinator behavior; it is not completion of travel, combat or secrets.
-**Plans:** TBD
+**Planning gates:** Phase 1 rearming and popup/GUI pause semantics are resolved by 01-CONTEXT.md decisions D-01–D-13. Record explicit decisions for Blood GUI deadlines, impossible deadlines, no-LOS secret feasibility and Auto Clear post-camp behavior before their affected implementation; ownership of DIAG-03 here does not permit silently defaulting later gates. A controlled task session validates coordinator behavior; it is not completion of travel, combat or secrets.
+**Plans:** 6 plans in 5 waves
+
+**Wave 1**
+- [ ] 01-01-PLAN.md — Ownership, harness, persistent settings and live map skeleton.
+
+**Wave 2 *(blocked on Wave 1 completion)***
+- [ ] 01-02-PLAN.md — Coordinated session invariants and resource ownership.
+- [ ] 01-03-PLAN.md — Map prerequisites, layout and binding edge cases.
+
+**Wave 3 *(blocked on Wave 2 completion)***
+- [ ] 01-04-PLAN.md — Physical input, lifecycle and scoped client integration.
+
+**Wave 4 *(blocked on Wave 3 completion)***
+- [ ] 01-06-PLAN.md — Isolated production-backed development control fixture.
+
+**Wave 5 *(blocked on Wave 4 completion)***
+- [ ] 01-05-PLAN.md — Acceptance evidence and verified v0.1.0 delivery.
 **UI hint:** yes
 
 ### Phase 2: Time-Optimized Room Travel
@@ -129,7 +145,7 @@ Every completed feature or fix receives its own semantic tag, GitHub Release, co
 
 | Phase | Plans Complete | Status | Completed |
 | --- | --- | --- | --- |
-| 1. Live Map and Safe Task Control | 0/TBD | Ready to plan | - |
+| 1. Live Map and Safe Task Control | 0/6 | Ready to execute | - |
 | 2. Time-Optimized Room Travel | 0/TBD | Not started | - |
 | 3. Mob-Only Room Clearing | 0/TBD | Not started | - |
 | 4. Proven Secret Collection | 0/TBD | Not started | - |

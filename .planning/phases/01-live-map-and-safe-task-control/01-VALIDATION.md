@@ -28,18 +28,24 @@ Proposed dependency-free JVM invariant harness, isolated from Minecraft/Noamm lo
 
 ## Per-Task Verification Map
 
-Plans and task IDs are not assigned yet. The planner must replace these behavior groups with actual task IDs and Wave 0 dependencies before claiming Nyquist compliance.
+Task IDs below match the six executable plans. Wave 0 infrastructure is task 01-01-01, executed in Wave 1 before dependent implementation. Commands remain proposed until that task establishes and verifies the Gradle harness; no existing test success is implied.
 
-| Behavior group | Requirements | Threat / secure behavior | Verification | Status |
+| Task ID | Requirements | Verification | Wave 0 dependency | Status |
 | --- | --- | --- | --- | --- |
-| Exact reuse, menu and prerequisites | CORE-02, CORE-03, CORE-04 | Dependency drift: compare pinned source, installed hash and ABI | Static ABI review; live named dependency toasts | Pending, Wave 0 |
-| Live map and binding | MAP-01, MAP-02 | Reject unknown data; no invented room state | Binding edge tests in controlTest; live render/discovery/rebind | Pending, Wave 0 |
-| Cancellation and rearm | TASK-02, DIAG-03 | Stale tasks: epoch/generation fence; preserve enabled settings | controlTest: Esc/fatal, same-run latch, explicit toggle, next run | Pending, Wave 0 |
-| Composite pauses | TASK-03, TASK-04 | Input feedback: source separation; all pause reasons must clear | controlTest overlapping GUI/manual/death; revalidation before action | Pending, Wave 0 |
-| Terminal lifecycle | TASK-05 | Old callbacks cannot act in another run | controlTest terminal/duplicate/out-of-order event traces | Pending, Wave 0 |
-| Exclusive resources | TASK-07 | Scoped cancellation; no global Noamm ActionUtils.reset | controlTest atomic leases/stale tokens plus live unrelated-action sentinel | Pending, Wave 0 |
-| Ownership | CORE-05 | Distinct implementers/researchers and shared coordinator ownership | Record actual identities and file ownership before edits | Pending |
-| Release provenance | REL-01, REL-02 | Matching source/tag/JAR; no credentials in evidence | Manifest/hash review and download verification of completed v0.1.0 increment | Pending |
+| 01-01-01 | CORE-02, CORE-05 | JDK/task inventory, artifact hash/ABI, actual ownership record, RED map fixture | Establishes controlTest and map fixture | Planned |
+| 01-01-02 | CORE-03, MAP-02 | controlTest --args=map-settings; target compile; real Noamm persistence | 01-01-01 | Planned |
+| 01-01-03 | MAP-01, MAP-02 | controlTest --args=map; 26.2 build; live render path | 01-01-01 | Planned |
+| 01-02-01 | TASK-02–05, DIAG-03 | controlTest --args=session; stop/rearm/composite pause/terminal traces | 01-01-01 | Planned |
+| 01-02-02 | TASK-07 | controlTest --args=leases; atomic conflicts, stale tokens, scoped sentinel | 01-01-01 | Planned |
+| 01-03-01 | CORE-02–04, MAP-01–02 | controlTest --args=map-contract; compile; prerequisite combinations/real data guards | 01-01-01 | Planned |
+| 01-03-02 | MAP-01–02 | controlTest --args=map-layout; target build; GUI-scale screenshots | 01-01-01 | Planned |
+| 01-04-01 | TASK-02–03, TASK-07 | controlTest --args=input; target compile; mapped descriptors and physical-input scenarios | 01-01-01 plus 01-02 contract fixtures | Planned |
+| 01-04-02 | TASK-02–05, TASK-07, CORE-04 | controlTest --args=client-adapters; full harness/build; actual mixin/lifecycle/coexistence checks | 01-01-01 plus 01-02 contract fixtures | Planned |
+| 01-06-01 | TASK-02–05, TASK-07 | controlTest --args=dev-fixture; verifyControlFixtureIsolation; actual dev start/status | 01-04 production adapters | Planned |
+| 01-06-02 | TASK-02–05, TASK-07 | Full harness/build/isolation; actual fatal/rearm/sentinel and physical scenario evidence | 01-06-01 fixture | Planned |
+| 01-05-01 | All Phase 1 IDs | Verify-Phase1.ps1; actual map/control/floor scenario evidence | 01-06 fixture and earlier implementation checks | Planned |
+| 01-05-02 | REL-01–02, CORE-02 | Full harness/build; Verify-Release.ps1 -Stage Candidate | 01-01-01 | Planned |
+| 01-05-03 | REL-01–02 | Verify-Release.ps1 -Stage Published; remote tag/download hash check | Candidate evidence/script | Planned |
 
 ## Wave 0 Requirements
 
@@ -50,6 +56,8 @@ Plans and task IDs are not assigned yet. The planner must replace these behavior
 - [ ] Locate/select JDK 25; establish authorized publishing route before release.
 
 ## Manual-Only Verifications
+
+Controlled client session entry point: `.\gradlew.bat :26.2:runControlFixture`, then `/crit-control-fixture start` and `status`. The isolated `src/devControl/` fixture directly queues active probe-A and pending probe-B through the production coordinator. Bounded guarded heartbeats show pause/resume/revalidation without movement/combat/item-use effects. Use commands `fatal`, `selection-off`, `selection-on`, `sentinel` and `reset`; real input/GUI/death/lifecycle adapters remain authoritative. The sentinel is an unrelated Noamm shared-queue action; Crit yields using a read-only synchronized ActionUtils busy snapshot and never resets that queue. `.\gradlew.bat :26.2:verifyControlFixtureIsolation` checks compiled fixture exclusion from final JAR and ordinary run configuration. Commands must be absent in ordinary client runs. Live scenario evidence records actual IDs, heartbeat counts, current epoch, reasons and revalidation snapshots; fixtures never establish later gameplay capability.
 
 | Behavior | Requirements | Instructions |
 | --- | --- | --- |
@@ -71,4 +79,4 @@ Live checks must record supported floor coverage rather than assume universal be
 - [ ] Required live checks and release evidence recorded honestly.
 - [ ] Set nyquist_compliant only after plan review; wave_0_complete only after execution.
 
-**Approval:** Pending planning and plan-checker review. No build, installation or live test performed.
+**Approval:** Task mapping complete; independent plan-checker review pending. Keep nyquist_compliant false until that review passes. wave_0_complete remains false until infrastructure executes. No build, installation or live test performed during planning.
