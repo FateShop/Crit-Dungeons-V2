@@ -11,15 +11,15 @@ The detailed acceptance contract is PROJECT.md plus the three preserved user inp
 ### Integration
 
 - [ ] **CORE-01**: Player can use Crit Addons on Minecraft 26.2 with NoammAddons 1.3.5 cheat across F1–F7 and M1–M7.
-- [ ] **CORE-02**: Every feature and partial implementation reuses applicable Noamm functionality, with exact-dependency evidence before anything is declared absent.
-- [ ] **CORE-03**: Player finds every new feature and setting under the Crit Addons tab in Noamm's menu.
-- [ ] **CORE-04**: Missing required Noamm features/settings produce existing Noamm toasts naming what the player must enable.
+- [x] **CORE-02**: Every feature and partial implementation reuses applicable Noamm functionality, with exact-dependency evidence before anything is declared absent.
+- [x] **CORE-03**: Player finds every new feature and setting under the Crit Addons tab in Noamm's menu.
+- [x] **CORE-04**: Missing required Noamm features/settings produce existing Noamm toasts naming what the player must enable.
 - [ ] **CORE-05**: Each of the six feature areas has distinct research and implementation agents, with explicit shared-service ownership and no inspection of older projects without new permission.
 
 ### Interactive map
 
-- [ ] **MAP-01**: Popup displays Noamm Cheater Map's actual available rooms, identities and layout, updating during the run without inventing unavailable information.
-- [ ] **MAP-02**: Player toggles the popup with configurable default M; issuing commands leaves it open.
+- [x] **MAP-01**: Popup displays Noamm Cheater Map's actual available rooms, identities and layout, updating during the run without inventing unavailable information.
+- [x] **MAP-02**: Player toggles the popup with configurable default M; issuing commands leaves it open.
 - [ ] **MAP-03**: Left click queues travel to the fastest safely reachable position inside the selected room.
 - [ ] **MAP-04**: Ctrl-left click queues only the selected room's mob-clear requirement.
 - [ ] **MAP-05**: Shift-right click queues physical secret collection in the selected room.
@@ -133,9 +133,9 @@ Each approved v1 ID has exactly one owning phase. Later phases consume and exerc
 | BLOOD-05 | Phase 5 | Pending |
 | BLOOD-06 | Phase 5 | Pending |
 | CORE-01 | Phase 6 | Pending |
-| CORE-02 | Phase 1 | Pending |
-| CORE-03 | Phase 1 | Pending |
-| CORE-04 | Phase 1 | Pending |
+| CORE-02 | Phase 1 | Complete |
+| CORE-03 | Phase 1 | Complete |
+| CORE-04 | Phase 1 | Complete |
 | CORE-05 | Phase 1 | Pending |
 | DIAG-01 | Phase 2 | Pending |
 | DIAG-02 | Phase 4 | Pending |
@@ -144,8 +144,8 @@ Each approved v1 ID has exactly one owning phase. Later phases consume and exerc
 | LOAD-02 | Phase 2 | Pending |
 | LOAD-03 | Phase 2 | Pending |
 | LOAD-04 | Phase 2 | Pending |
-| MAP-01 | Phase 1 | Pending |
-| MAP-02 | Phase 1 | Pending |
+| MAP-01 | Phase 1 | Complete |
+| MAP-02 | Phase 1 | Complete |
 | MAP-03 | Phase 2 | Pending |
 | MAP-04 | Phase 3 | Pending |
 | MAP-05 | Phase 4 | Pending |
